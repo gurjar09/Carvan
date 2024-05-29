@@ -27,56 +27,51 @@
     <link rel="stylesheet" href="/static/css/style.css">
 
 	<style>
-        .carousel {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
+        /* Carousel */
+.carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
 
-        .carousel-inner {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease;
+}
 
-        .carousel-item {
-            flex: 0 0 auto;
-            width: 100%;
-        }
+.carousel-item {
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
 
-        .carousel-controls {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            z-index: 1000;
-        }
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
 
-        .carousel-control {
-            cursor: pointer;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            padding: 10px;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-        }
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
 
-        .carousel-control-prev {
-            left: 10px;
-        }
+.carousel-control {
+    cursor: pointer;
+    font-size: 24px;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
 
-        .carousel-control-next {
-            right: 10px;
-        }
+.carousel-control:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
 
-        .img {
-            height: 200px; /* Adjust the height of the image container */
-            width: 100%;
-            object-fit: cover;
-        }
     </style>
   </head>
   <body>
@@ -517,16 +512,20 @@
   <script src="/static/js/google-map.js"></script>
   <script src="/static/js/main.js"></script>
   <script>
-	function changeSlide(carId, direction) {
-		var carousel = document.getElementById('carousel' + carId);
-		var carouselInner = carousel.querySelector('.carousel-inner');
-		var activeItem = carouselInner.querySelector('.carousel-item.active');
-		var nextItem = direction === 1 ? activeItem.nextElementSibling : activeItem.previousElementSibling;
-		if (nextItem) {
-			activeItem.classList.remove('active');
-			nextItem.classList.add('active');
-		}
-	}
+	function nextSlide(carId) {
+    var carousel = document.getElementById('carousel' + carId);
+    var carouselInner = carousel.querySelector('.carousel-inner');
+    var width = carouselInner.offsetWidth;
+    carouselInner.style.transform = 'translateX(-' + width + 'px)';
+}
+
+function prevSlide(carId) {
+    var carousel = document.getElementById('carousel' + carId);
+    var carouselInner = carousel.querySelector('.carousel-inner');
+    var width = carouselInner.offsetWidth;
+    carouselInner.style.transform = 'translateX(0)';
+}
+
 </script>
   </body>
 </html>
