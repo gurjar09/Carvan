@@ -137,19 +137,22 @@
 							</div>
 						</div> -->
 						{% if car.images.exists %}
-                <div class="carousel" id="carousel{{ car.id }}">
-                    <div class="carousel-inner">
-                        {% for image in car.images.all %}
-                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                            <img src="{{ image.image.url }}" class="img" alt="Car Image">
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <div class="carousel-controls">
-                        <button class="carousel-control carousel-control-prev" onclick="changeSlide('{{ car.id }}', -1)">&#10094;</button>
-                        <button class="carousel-control carousel-control-next" onclick="changeSlide('{{ car.id }}', 1)">&#10095;</button>
-                    </div>
-                </div>
+    <div class="carousel" id="carousel{{ car.id }}">
+        <div class="carousel-inner">
+            {% for image in car.images.all %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img src="{{ image.image.url }}" class="img rounded" alt="Car Image">
+            </div>
+            {% endfor %}
+        </div>
+        <div class="carousel-controls">
+            <span class="carousel-control prev" onclick="prevSlide('{{ car.id }}')">❮</span>
+            <span class="carousel-control next" onclick="nextSlide('{{ car.id }}')">❯</span>
+        </div>
+    </div>
+    {% else %}
+    <div class="img rounded d-flex align-items-end" style="background-color: #ccc;">No Image Available</div>
+    {% endif %}
 						<div class="text text-center">
 							<span class="subheading">{{ car.brand }}</span>
 							<h2>{{ car.carName }}</h2>
