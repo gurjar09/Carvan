@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/animate.css">
+
+    <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/static/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/static/css/aos.css">
+
+    <link rel="stylesheet" href="/static/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="/static/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/static/css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="/static/css/flaticon.css">
+    <link rel="stylesheet" href="/static/css/icomoon.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/Host.css">
+    <title>www.carvanDrive.com</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index">Car<span>Van</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="{% url 'services' %}" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="{% url 'pricing' %}" class="nav-link">Pricing</a></li>
+                    <li class="nav-item"><a href="{% url 'car' %}" class="nav-link">Cars</a></li>
+                    <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+                </ul>
+                
+            </div>
+        </div>
+    </nav>
+    <div class="wrapper">
+
+        <form method="POST" class="register-container" id="register">
+            {% csrf_token %}
+
+            <div class="top">
+                <header>Sign Up</header>
+            </div>
+
+            <div class="input-box">
+                <input type="text" class="input-field" name="owner_first_name" placeholder="First Name" required>
+                <i class="bx bx-envelope"></i>
+            </div>
+            <div class="input-box">
+                <input type="text" class="input-field" name="owner_last_name" placeholder="Last Name" required>
+                <i class="bx bx-lock-alt"></i>
+            </div>
+
+            <div class="input-box">
+                <input type="mobile" class="input-field" name="mobile_number" placeholder="Mobile Number" required>
+                <i class="bx bx-lock-alt"></i>
+            </div>
+
+            <div class="input-box">
+                <input type="email" class="input-field" name="email_address" placeholder="Email Address" required>
+                <i class="bx bx-lock-alt"></i>
+            </div>
+
+            <a href="{% url 'document'%}">
+                <div class="input-box">
+                    <input type="submit" class="submit" value="Register">
+                </div>
+            </a>
+    </div>
+    </div>
+    </form>
+
+
+    </div>
+
+
+</body>
+
+</html>

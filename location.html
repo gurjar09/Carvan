@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>location</title>
+</head>
+
+<body>
+    <button id="get-location">get location</button>
+
+    <script>
+        const button = document.getElementById('get-location');
+
+        async function getData(lat,long) {
+            const promise = await fetch(
+                `http://api.weatherapi.com/v1/current.json?key=9572d79fc88c4b1dac493931240304&q=${lat},${long}&aqi=yes`
+                );
+                return await promise.json()
+        }
+     async function gotLocation(position) {
+            const result = await getData(position.coords.latitude,position.coords.longitude)
+            console.log(result)
+        }
+        
+
+        function failedToGet() {
+            console.log("There Was some Issue...")
+        }
+        button.addEventListener('click', async () => {
+            const result = navigator.geolocation.getCurrentPosition(gotLocation, failedToGet)
+        })
+    </script>
+</body>
+
+</html>
