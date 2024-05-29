@@ -27,16 +27,11 @@
     <link rel="stylesheet" href="/static/css/style.css">
 
 	<style>
-        .car-wrap {
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
         .carousel {
             position: relative;
             width: 100%;
             overflow: hidden;
+            margin-bottom: 20px;
         }
 
         .carousel-inner {
@@ -64,21 +59,23 @@
             background-color: rgba(0, 0, 0, 0.5);
             color: #fff;
             padding: 10px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         .carousel-control-prev {
-            border-radius: 50% 0 0 50%;
+            left: 10px;
         }
 
         .carousel-control-next {
-            border-radius: 0 50% 50% 0;
+            right: 10px;
         }
 
         .img {
             height: 200px; /* Adjust the height of the image container */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            width: 100%;
+            object-fit: cover;
         }
     </style>
   </head>
@@ -126,7 +123,7 @@
 			<div class="row justify-content-center">
 				<div class="col-md-12">
 					<div class="car-details">
-						<div class="carousel" id="carousel{{ car.id }}">
+						<!-- <div class="carousel" id="carousel{{ car.id }}">
 							<div class="carousel-inner">
 								{% for image in car.images.all %}
 								<div class="carousel-item">
@@ -138,7 +135,21 @@
 								<span class="carousel-control prev" onclick="prevSlide('{{ car.id }}')">❮</span>
 								<span class="carousel-control next" onclick="nextSlide('{{ car.id }}')">❯</span>
 							</div>
-						</div>
+						</div> -->
+						{% if car.images.exists %}
+                <div class="carousel" id="carousel{{ car.id }}">
+                    <div class="carousel-inner">
+                        {% for image in car.images.all %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img src="{{ image.image.url }}" class="img" alt="Car Image">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="carousel-controls">
+                        <button class="carousel-control carousel-control-prev" onclick="changeSlide('{{ car.id }}', -1)">&#10094;</button>
+                        <button class="carousel-control carousel-control-next" onclick="changeSlide('{{ car.id }}', 1)">&#10095;</button>
+                    </div>
+                </div>
 						<div class="text text-center">
 							<span class="subheading">{{ car.brand }}</span>
 							<h2>{{ car.carName }}</h2>
@@ -503,18 +514,15 @@
   <script src="/static/js/google-map.js"></script>
   <script src="/static/js/main.js"></script>
   <script>
-	function nextSlide(carId) {
+	function changeSlide(carId, direction) {
 		var carousel = document.getElementById('carousel' + carId);
 		var carouselInner = carousel.querySelector('.carousel-inner');
-		var firstItem = carouselInner.firstElementChild;
-		carouselInner.appendChild(firstItem);
-	}
-
-	function prevSlide(carId) {
-		var carousel = document.getElementById('carousel' + carId);
-		var carouselInner = carousel.querySelector('.carousel-inner');
-		var lastItem = carouselInner.lastElementChild;
-		carouselInner.insertBefore(lastItem, carouselInner.firstElementChild);
+		var activeItem = carouselInner.querySelector('.carousel-item.active');
+		var nextItem = direction === 1 ? activeItem.nextElementSibling : activeItem.previousElementSibling;
+		if (nextItem) {
+			activeItem.classList.remove('active');
+			nextItem.classList.add('active');
+		}
 	}
 </script>
   </body>
