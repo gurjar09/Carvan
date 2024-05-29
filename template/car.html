@@ -58,6 +58,47 @@
           margin-left: 270px;
       }
   </style>
+  <style>
+    /* Style for image carousel */
+    .carousel {
+        position: relative;
+        width: 100%;
+        max-width: 300px; /* Adjust width as needed */
+        margin: auto;
+        overflow: hidden;
+    }
+    .carousel-inner {
+        display: flex;
+        transition: transform 0.5s ease;
+    }
+    .carousel-item {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+    .carousel-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    .carousel-control {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 10;
+    }
+    .carousel-control-prev {
+        left: 10px;
+    }
+    .carousel-control-next {
+        right: 10px;
+    }
+</style>
   </head>
   <body>
     
@@ -136,31 +177,39 @@
           
           <div class="content" id="content">
             <div class="row">
-                {% for car in carvanVehicle %}
-                <div class="col-md-4">
-                    <div class="car-wrap rounded ftco-animate">
-                        <div class="img rounded d-flex align-items-end">
-                            <div class="image-gallery">
-                                {% for image in car.images.all %}
-                                <img src="{{ image.url }}" alt="{{ image.alt }}">
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <div class="text">
-                            <h2 class="mb-0"><a href="{% url 'car_single' car.id %}">{{ car.carName }}</a></h2>
-                            <div class="d-flex mb-3">
-                                <span class="cat">{{ car.brand }}</span>
-                                <p class="price ml-auto">₹{{ car.price }} <span>/day</span></p>
-                            </div>
-                            <p class="d-flex mb-0 d-block">
-                                <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
-                                <a href="{% url 'car_single' car.id %}" class="btn btn-secondary py-2 ml-1">Details</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+              {% for car in carvanVehicle %}
+              <div class="col-md-4">
+                  <div class="car-wrap rounded ftco-animate">
+                      {% if car.images.exists %}
+                      <div class="carousel" id="carousel{{ car.id }}">
+                          <div class="carousel-inner">
+                              {% for image in car.images.all %}
+                              <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                  <img src="{{ image.image.url }}" alt="Car Image">
+                              </div>
+                              {% endfor %}
+                          </div>
+                          <button class="carousel-control carousel-control-prev" onclick="changeSlide({{ car.id }}, -1)">&#10094;</button>
+                          <button class="carousel-control carousel-control-next" onclick="changeSlide({{ car.id }}, 1)">&#10095;</button>
+                      </div>
+                      {% else %}
+                      <div class="img rounded d-flex align-items-end" style="background-color: #ccc;">No Image Available</div>
+                      {% endif %}
+                      <div class="text">
+                          <h2 class="mb-0"><a href="{% url 'car_single' car.id %}">{{ car.carName }}</a></h2>
+                          <div class="d-flex mb-3">
+                              <span class="cat">{{ car.brand }}</span>
+                              <p class="price ml-auto">₹{{ car.price }} <span>/day</span></p>
+                          </div>
+                          <p class="d-flex mb-0 d-block">
+                              <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+                              <a href="{% url 'car_single' car.id %}" class="btn btn-secondary py-2 ml-1">Details</a>
+                          </p>
+                      </div>
+                  </div>
+              </div>
+              {% endfor %}
+          </div>
         </div>
         
       </div>
@@ -266,6 +315,28 @@
             content.classList.remove('shifted');
         }
     });
+</script>
+<script>
+  // JavaScript function to change slide
+  function changeSlide(carId, direction) {
+      var carousel = document.getElementById("carousel" + carId);
+      var items = carousel.getElementsByClassName("carousel-item");
+      var activeIndex = 0;
+      for (var i = 0; i < items.length; i++) {
+          if (items[i].classList.contains("active")) {
+              activeIndex = i;
+              break;
+          }
+      }
+      var newIndex = activeIndex + direction;
+      if (newIndex < 0) {
+          newIndex = items.length - 1;
+      } else if (newIndex >= items.length) {
+          newIndex = 0;
+      }
+      items[activeIndex].classList.remove("active");
+      items[newIndex].classList.add("active");
+  }
 </script>
 
   </body>
