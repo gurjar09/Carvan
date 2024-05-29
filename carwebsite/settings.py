@@ -77,10 +77,11 @@ WSGI_APPLICATION = 'carwebsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Carvan2024',
+        'NAME': 'carvan',
         'USER' : 'postgres',
-        'PASSWORD' : 'M@123',
-        'HOST' : 'localhost',
+        'PASSWORD' : 'Emta0505',
+        'HOST' : 'carvan.c78yiau2i7f4.ap-southeast-2.rds.amazonaws.com',
+        'PORT' : '5432'
     }
 }
 
