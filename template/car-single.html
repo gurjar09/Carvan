@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="/static/css/flaticon.css">
     <link rel="stylesheet" href="/static/css/icomoon.css">
     <link rel="stylesheet" href="/static/css/style.css">
+
 	<style>
         .car-wrap {
             position: relative;
@@ -122,10 +123,9 @@
 
 	<section class="ftco-section ftco-car-details">
 		<div class="container">
-			<div class="row">
-				{% for car in carvanVehicle %}
-				<div class="col-md-4">
-					<div class="car-wrap rounded ftco-animate">
+			<div class="row justify-content-center">
+				<div class="col-md-12">
+					<div class="car-details">
 						<div class="carousel" id="carousel{{ car.id }}">
 							<div class="carousel-inner">
 								{% for image in car.images.all %}
@@ -139,23 +139,13 @@
 								<span class="carousel-control next" onclick="nextSlide('{{ car.id }}')">❯</span>
 							</div>
 						</div>
-						<div class="text">
-							<h2 class="mb-0"><a href="{% url 'car_single' car.id %}">{{ car.carName }}</a></h2>
-							<div class="d-flex mb-3">
-								<span class="cat">{{ car.brand }}</span>
-								<p class="price ml-auto">₹{{ car.price }} <span>/day</span></p>
-							</div>
-							<p class="d-flex mb-0 d-block">
-								<a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
-								<a href="{% url 'car_single' car.id %}" class="btn btn-secondary py-2 ml-1">Details</a>
-							</p>
+						<div class="text text-center">
+							<span class="subheading">{{ car.brand }}</span>
+							<h2>{{ car.carName }}</h2>
 						</div>
 					</div>
 				</div>
-				{% endfor %}
 			</div>
-		
-		
 			<div class="row">
 				<div class="col-md d-flex align-self-stretch ftco-animate">
 					<div class="media block-6 services">
