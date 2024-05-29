@@ -26,37 +26,38 @@
     <link rel="stylesheet" href="/static/css/icomoon.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <style>
-      .filter-container {
-          position: relative;
-      }
+      .container {
+    margin-bottom: 20px; /* Add some space below the filter section */
+}
 
-      .filter-sidebar {
-          position: absolute;
-          top: 80px;
-          left: 20px;
-          width: 250px;
-          height: auto;
-          background: #f8f9fa;
-          padding: 20px;
-          box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-          z-index: 1000;
-          display: none;
-      }
+/* Style for the filter button */
+#toggle-filter {
+    margin-bottom: 10px; /* Add some space below the button */
+}
 
-      .filter-toggle {
-          position: absolute;
-          top: 50px;
-          left: 20px;
-          z-index: 1001;
-      }
+/* Style for the filter sidebar */
+.filter-sidebar {
+    display: none; /* Hide the sidebar by default */
+    position: fixed; /* Fixed position to keep it visible while scrolling */
+    top: 50px; /* Adjust this value according to your design */
+    left: 0;
+    width: 250px; /* Adjust the width as needed */
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 1000; /* Ensure it's above other content */
+}
 
-      .content {
-          transition: margin-left 0.3s;
-      }
+/* Style for the form inside the sidebar */
+#filter-form {
+    margin-bottom: 10px; /* Add some space below the form */
+}
 
-      .content.shifted {
-          margin-left: 270px;
-      }
+/* Show the sidebar when the toggle button is clicked */
+#toggle-filter:checked + .filter-sidebar {
+    display: block;
+}
   </style>
   <style>
     /* Style for image carousel */
@@ -138,6 +139,7 @@
     </section>
     <section class="ftco-section bg-light">
       <div class="container">
+        
           <button id="toggle-filter" class="btn btn-info filter-toggle">Filter</button>
           
           <aside class="filter-sidebar" id="filter-sidebar">
@@ -174,6 +176,7 @@
                   <button type="submit" class="btn btn-primary">Filter</button>
               </form>
           </aside>
+      
           
           <div class="content" id="content">
             <div class="row">
