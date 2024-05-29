@@ -27,38 +27,39 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <style>
       .container {
-    margin-bottom: 20px; /* Add some space below the filter section */
-}
-
-/* Style for the filter button */
-#toggle-filter {
-    margin-bottom: 10px; /* Add some space below the button */
-}
-
-/* Style for the filter sidebar */
-.filter-sidebar {
-    display: none; /* Hide the sidebar by default */
-    position: fixed; /* Fixed position to keep it visible while scrolling */
-    top: 50px; /* Adjust this value according to your design */
-    left: 0;
-    width: 250px; /* Adjust the width as needed */
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    z-index: 1000; /* Ensure it's above other content */
-}
-
-/* Style for the form inside the sidebar */
-#filter-form {
-    margin-bottom: 10px; /* Add some space below the form */
-}
-
-/* Show the sidebar when the toggle button is clicked */
-#toggle-filter:checked + .filter-sidebar {
-    display: block;
-}
-  </style>
+          margin-bottom: 20px;
+      }
+      
+      #toggle-filter {
+          margin-bottom: 10px;
+          position: fixed;
+          top: 10px;
+          left: 10px;
+          z-index: 1000;
+      }
+      
+      .filter-sidebar {
+          display: none;
+          position: fixed;
+          top: 50px;
+          left: 0;
+          width: 250px;
+          padding: 20px;
+          background-color: #fff;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          z-index: 1000;
+      }
+      
+      #filter-form {
+          margin-bottom: 10px;
+      }
+      
+      #toggle-filter:checked + .filter-sidebar {
+          display: block;
+      }
+      </style>
+      
   <style>
     /* Style for image carousel */
     .carousel {
