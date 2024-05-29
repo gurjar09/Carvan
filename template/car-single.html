@@ -25,6 +25,61 @@
     <link rel="stylesheet" href="/static/css/flaticon.css">
     <link rel="stylesheet" href="/static/css/icomoon.css">
     <link rel="stylesheet" href="/static/css/style.css">
+	<style>
+        .car-wrap {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-item {
+            flex: 0 0 auto;
+            width: 100%;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            z-index: 1000;
+        }
+
+        .carousel-control {
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 10px;
+        }
+
+        .carousel-control-prev {
+            border-radius: 50% 0 0 50%;
+        }
+
+        .carousel-control-next {
+            border-radius: 0 50% 50% 0;
+        }
+
+        .img {
+            height: 200px; /* Adjust the height of the image container */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
   </head>
   <body>
     
@@ -67,21 +122,40 @@
 
 	<section class="ftco-section ftco-car-details">
 		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-12">
-					<div class="car-details">
-						{% if car.img %}
-						<div class="img rounded" style="background-image: url({{ car.img.url }});"></div>
-						{% else %}
-                          <div class="img rounded " style="background-color: #ccc;">No Image Available</div>
-                          {% endif %}
-						<div class="text text-center">
-							<span class="subheading">{{ car.brand }}</span>
-							<h2>{{ car.carName }}</h2>
+			<div class="row">
+				{% for car in carvanVehicle %}
+				<div class="col-md-4">
+					<div class="car-wrap rounded ftco-animate">
+						<div class="carousel" id="carousel{{ car.id }}">
+							<div class="carousel-inner">
+								{% for image in car.images.all %}
+								<div class="carousel-item">
+									<div class="img rounded" style="background-image: url({{ image.image.url }});"></div>
+								</div>
+								{% endfor %}
+							</div>
+							<div class="carousel-controls">
+								<span class="carousel-control prev" onclick="prevSlide('{{ car.id }}')">❮</span>
+								<span class="carousel-control next" onclick="nextSlide('{{ car.id }}')">❯</span>
+							</div>
+						</div>
+						<div class="text">
+							<h2 class="mb-0"><a href="{% url 'car_single' car.id %}">{{ car.carName }}</a></h2>
+							<div class="d-flex mb-3">
+								<span class="cat">{{ car.brand }}</span>
+								<p class="price ml-auto">₹{{ car.price }} <span>/day</span></p>
+							</div>
+							<p class="d-flex mb-0 d-block">
+								<a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+								<a href="{% url 'car_single' car.id %}" class="btn btn-secondary py-2 ml-1">Details</a>
+							</p>
 						</div>
 					</div>
 				</div>
+				{% endfor %}
 			</div>
+		
+		
 			<div class="row">
 				<div class="col-md d-flex align-self-stretch ftco-animate">
 					<div class="media block-6 services">
@@ -438,6 +512,20 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="/static/js/google-map.js"></script>
   <script src="/static/js/main.js"></script>
-    
+  <script>
+	function nextSlide(carId) {
+		var carousel = document.getElementById('carousel' + carId);
+		var carouselInner = carousel.querySelector('.carousel-inner');
+		var firstItem = carouselInner.firstElementChild;
+		carouselInner.appendChild(firstItem);
+	}
+
+	function prevSlide(carId) {
+		var carousel = document.getElementById('carousel' + carId);
+		var carouselInner = carousel.querySelector('.carousel-inner');
+		var lastItem = carouselInner.lastElementChild;
+		carouselInner.insertBefore(lastItem, carouselInner.firstElementChild);
+	}
+</script>
   </body>
 </html>
