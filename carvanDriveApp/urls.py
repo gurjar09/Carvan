@@ -19,6 +19,4 @@ urlpatterns = [
     path('host-car-details/', hostCarDetails, name='hostCarDetails'),
     path('car-single/<int:car_id>/', car_single, name='car_single'),
     path('admin/', admin.site.urls),
-]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
