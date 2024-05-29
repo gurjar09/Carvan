@@ -138,22 +138,27 @@
 							</div>
 						</div> -->
 						{% if car.images.exists %}
-    <div class="carousel" id="carousel{{ car.id }}">
-        <div class="carousel-inner">
-            {% for image in car.images.all %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <img src="{{ image.image.url }}" class="img rounded" alt="Car Image">
-                </div>
-            {% endfor %}
+<div class="carousel" id="carousel{{ car.id }}">
+    <div class="carousel-inner">
+        {% for image in car.images.all %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <img src="{{ image.image.url }}" class="d-block w-100" alt="Car Image">
         </div>
-        <div class="carousel-controls">
-            <span class="carousel-control prev" onclick="prevSlide('{{ car.id }}')">❮</span>
-            <span class="carousel-control next" onclick="nextSlide('{{ car.id }}')">❯</span>
-        </div>
+        {% endfor %}
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ car.id }}" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ car.id }}" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
 {% else %}
-    <div class="img rounded d-flex align-items-end" style="background-color: #ccc;">No Image Available</div>
+<div class="img rounded d-flex align-items-end" style="background-color: #ccc;">No Image Available</div>
 {% endif %}
+
 
 						<div class="text text-center">
 							<span class="subheading">{{ car.brand }}</span>
