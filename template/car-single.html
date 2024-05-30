@@ -33,7 +33,7 @@
 		.carousel {
 			position: relative;
 			width: 100%;
-			max-width: 800px; /* Adjust width as needed */
+			max-width: 600px; /* Adjust width as needed */
 			margin: auto;
 			overflow: hidden;
 		}
@@ -51,12 +51,12 @@
 			display: block;
 		}
 		.carousel-control {
-			position: absolute;
+			position: fixed;
 			top: 50%;
 			transform: translateY(-50%);
 			cursor: pointer;
 			/* background: rgba(0, 0, 0, 0.5); */
-			color: #131111;
+			color: #fff;
 			border: none;
 			padding: 10px;
 			border-radius: 5px;
@@ -141,8 +141,8 @@
                               </div>
                               {% endfor %}
                           </div>
-                          <button class="carousel-control " onclick="changeSlide({{ car.id }}, -1)">&#10094;</button>
-                          <button class="carousel-control " onclick="changeSlide({{ car.id }}, 1)">&#10095;</button>
+                          <button class="carousel-control carousel-control-prev" onclick="changeSlide({{ car.id }}, -1)">&#10094;</button>
+                          <button class="carousel-control carousel-control-next" onclick="changeSlide({{ car.id }}, 1)">&#10095;</button>
                       </div>
                       {% else %}
                       <div class="img rounded d-flex align-items-end" style="background-color: #ccc;">No Image Available</div>
