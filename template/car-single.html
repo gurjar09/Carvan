@@ -29,51 +29,46 @@
 	<link rel="stylesheet" href="/static/css/style.css">
 
 	<style>
-		/* Carousel */
+		/* Style for image carousel */
 		.carousel {
 			position: relative;
 			width: 100%;
+			max-width: 300px; /* Adjust width as needed */
+			margin: auto;
 			overflow: hidden;
 		}
-
 		.carousel-inner {
 			display: flex;
 			transition: transform 0.5s ease;
 		}
-
 		.carousel-item {
 			flex: 0 0 auto;
-			margin-right: 10px;
+			width: 100%;
 		}
-
 		.carousel-item img {
 			width: 100%;
 			height: auto;
-			border-radius: 5px;
+			display: block;
 		}
-
-		.carousel-controls {
+		.carousel-control {
 			position: absolute;
 			top: 50%;
 			transform: translateY(-50%);
-			width: 100%;
-			display: flex;
-			justify-content: space-between;
-		}
-
-		.carousel-control {
 			cursor: pointer;
-			font-size: 24px;
-			background-color: rgba(255, 255, 255, 0.5);
+			background: rgba(0, 0, 0, 0.5);
+			color: #fff;
+			border: none;
 			padding: 10px;
-			border-radius: 50%;
-			transition: background-color 0.3s ease;
+			border-radius: 5px;
+			z-index: 10;
 		}
-
-		.carousel-control:hover {
-			background-color: rgba(255, 255, 255, 0.8);
+		.carousel-control-prev {
+			left: 10px;
 		}
-	</style>
+		.carousel-control-next {
+			right: 10px;
+		}
+		</style>
 </head>
 
 <body>
@@ -138,27 +133,20 @@
 							</div>
 						</div> -->
 						{% if car.images.exists %}
-<div class="carousel" id="carousel{{ car.id }}">
-    <div class="carousel-inner">
-        {% for image in car.images.all %}
-        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-            <img src="{{ image.image.url }}" class="d-block w-100" alt="Car Image">
-        </div>
-        {% endfor %}
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ car.id }}" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ car.id }}" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
-{% else %}
-<div class="img rounded d-flex align-items-end" style="background-color: #ccc;">No Image Available</div>
-{% endif %}
-
+                      <div class="carousel" id="carousel{{ car.id }}">
+                          <div class="carousel-inner">
+                              {% for image in car.images.all %}
+                              <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                  <img src="{{ image.image.url }}" alt="Car Image">
+                              </div>
+                              {% endfor %}
+                          </div>
+                          <button class="carousel-control carousel-control-prev" onclick="changeSlide({{ car.id }}, -1)">&#10094;</button>
+                          <button class="carousel-control carousel-control-next" onclick="changeSlide({{ car.id }}, 1)">&#10095;</button>
+                      </div>
+                      {% else %}
+                      <div class="img rounded d-flex align-items-end" style="background-color: #ccc;">No Image Available</div>
+                      {% endif %}
 
 						<div class="text text-center">
 							<span class="subheading">{{ car.brand }}</span>
@@ -567,21 +555,27 @@
 	<script src="/static/js/google-map.js"></script>
 	<script src="/static/js/main.js"></script>
 	<script>
-		function nextSlide(carId) {
-			var carousel = document.getElementById('carousel' + carId);
-			var carouselInner = carousel.querySelector('.carousel-inner');
-			var width = carouselInner.offsetWidth;
-			carouselInner.style.transform = 'translateX(-' + width + 'px)';
+		// JavaScript function to change slide
+		function changeSlide(carId, direction) {
+			var carousel = document.getElementById("carousel" + carId);
+			var items = carousel.getElementsByClassName("carousel-item");
+			var activeIndex = 0;
+			for (var i = 0; i < items.length; i++) {
+				if (items[i].classList.contains("active")) {
+					activeIndex = i;
+					break;
+				}
+			}
+			var newIndex = activeIndex + direction;
+			if (newIndex < 0) {
+				newIndex = items.length - 1;
+			} else if (newIndex >= items.length) {
+				newIndex = 0;
+			}
+			items[activeIndex].classList.remove("active");
+			items[newIndex].classList.add("active");
 		}
-
-		function prevSlide(carId) {
-			var carousel = document.getElementById('carousel' + carId);
-			var carouselInner = carousel.querySelector('.carousel-inner');
-			var width = carouselInner.offsetWidth;
-			carouselInner.style.transform = 'translateX(0)';
-		}
-
-	</script>
+	  </script>
 </body>
 
 </html>
