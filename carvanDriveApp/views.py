@@ -17,8 +17,8 @@ def about(request) :
 def services(request) :
     return render(request,'services.html')
 
-def pricing(request) :
-    return render(request,'pricing.html')
+# def pricing(request) :
+#     return render(request,'pricing.html')
 
 def cars_list(request):
     cars = AddCar.objects.all()
