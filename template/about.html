@@ -44,7 +44,6 @@
           <li class="nav-item "><a href="{% url 'index' %}" class="nav-link">Home</a></li>
           <li class="nav-item active"><a href="{% url 'about' %}" class="nav-link">About</a></li>
           <li class="nav-item"><a href="{% url 'services' %}" class="nav-link">Services</a></li>
-          
           <li class="nav-item"><a href="{% url 'car' %}" class="nav-link">Cars</a></li>
           <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
           <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
@@ -88,7 +87,7 @@
               the Little Blind Text should turn around and return to its own, safe country. A small river named Duden
               flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in
               which roasted parts of sentences fly into your mouth.</p>
-            <p><a href="#" class="btn btn-primary py-3 px-4">Search Vehicle</a></p>
+            <p><a href="{% url 'car'%}" class="btn btn-primary py-3 px-4">Search Vehicle</a></p>
           </div>
         </div>
       </div>
@@ -101,7 +100,7 @@
       <div class="row justify-content-end">
         <div class="col-md-6 heading-section heading-section-white ftco-animate">
           <h2 class="mb-3">Do You Want To Earn With Us? So Don't Be Late.</h2>
-          <a href="#" class="btn btn-primary btn-lg">Become A Driver</a>
+          <a href="{% url 'host'%}" class="btn btn-primary btn-lg">Become A Host</a>
         </div>
       </div>
     </div>
@@ -244,8 +243,8 @@
           <div class="ftco-footer-widget mb-4 ml-md-5">
             <h2 class="ftco-heading-2">Information</h2>
             <ul class="list-unstyled">
-              <li><a href="about" class="py-2 d-block">About</a></li>
-              <li><a href="services" class="py-2 d-block">Services</a></li>
+              <li><a href="{% url 'about'%}" class="py-2 d-block">About</a></li>
+              <li><a href="{% url 'services' %}" class="py-2 d-block">Services</a></li>
               <li><a href="#" class="py-2 d-block">Term and Conditions</a></li>
               <li><a href="#" class="py-2 d-block">Best Price Guarantee</a></li>
               <li><a href="#" class="py-2 d-block">Privacy &amp; Cookies Policy</a></li>
@@ -260,7 +259,7 @@
               <li><a href="#" class="py-2 d-block">Payment Option</a></li>
               <li><a href="#" class="py-2 d-block">Booking Tips</a></li>
               <li><a href="#" class="py-2 d-block">How it works</a></li>
-              <li><a href="contact" class="py-2 d-block">Contact Us</a></li>
+              <li><a href="{% url 'contact'%}" class="py-2 d-block">Contact Us</a></li>
             </ul>
           </div>
         </div>
