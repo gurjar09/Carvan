@@ -5169,7 +5169,7 @@ a.close.disabled {
 .carousel-control-next {
   position: absolute;
   top: 0;
-  /* bottom: 0; */
+ 
   z-index: 1;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -5180,7 +5180,7 @@ a.close.disabled {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  /* width: 15%; */
+
   color: #fff;
   text-align: center;
   opacity: 0.5;
