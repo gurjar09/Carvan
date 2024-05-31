@@ -59,7 +59,7 @@
     <div class="container">
       <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
         <div class="col-md-9 ftco-animate pb-5">
-          <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i
+          <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'index'%}">Home <i
                   class="ion-ios-arrow-forward"></i></a></span> <span>Services <i
                 class="ion-ios-arrow-forward"></i></span></p>
           <h1 class="mb-3 bread">Our Services</h1>
@@ -128,7 +128,7 @@
       <div class="row justify-content-end">
         <div class="col-md-6 heading-section heading-section-white ftco-animate">
           <h2 class="mb-3">Do You Want To Earn With Us? So Don't Be Late.</h2>
-          <a href="#" class="btn btn-primary btn-lg">Become A Driver</a>
+          <a href="{% url 'host' %}" class="btn btn-primary btn-lg">Become A Host</a>
         </div>
       </div>
     </div>
@@ -153,8 +153,8 @@
           <div class="ftco-footer-widget mb-4 ml-md-5">
             <h2 class="ftco-heading-2">Information</h2>
             <ul class="list-unstyled">
-              <li><a href="about" class="py-2 d-block">About</a></li>
-              <li><a href="services" class="py-2 d-block">Services</a></li>
+              <li><a href="{% url 'about'%}" class="py-2 d-block">About</a></li>
+              <li><a href="{% url 'services'%}" class="py-2 d-block">Services</a></li>
               <li><a href="#" class="py-2 d-block">Term and Conditions</a></li>
               <li><a href="#" class="py-2 d-block">Best Price Guarantee</a></li>
               <li><a href="#" class="py-2 d-block">Privacy &amp; Cookies Policy</a></li>
@@ -169,7 +169,7 @@
               <li><a href="#" class="py-2 d-block">Payment Option</a></li>
               <li><a href="#" class="py-2 d-block">Booking Tips</a></li>
               <li><a href="#" class="py-2 d-block">How it works</a></li>
-              <li><a href="contact" class="py-2 d-block">Contact Us</a></li>
+              <li><a href="{% url 'contact'%}" class="py-2 d-block">Contact Us</a></li>
             </ul>
           </div>
         </div>

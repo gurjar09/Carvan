@@ -18,5 +18,8 @@ urlpatterns = [
     path('document/', document, name='document'),
     path('host-car-details/', hostCarDetails, name='hostCarDetails'),
     path('car-single/<int:car_id>/', car_single, name='car_single'),
+    # path('success/', booking_success, name='booking_success'),
+    path('get-location/', get_location, name='get_location'),
+    # path('profile',profile,name = profile),
     path('admin/', admin.site.urls),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

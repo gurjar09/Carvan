@@ -1,15 +1,63 @@
+from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
+import requests
 from .models import *
 from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect
+from .models import AddCar, Booking
+from django.http import JsonResponse
 
 
-# Create your views here.
-def index(request) :
+def index(request):
     carvanVehicle = AddCar.objects.all()
-    return render(request,'index.html',{'carvanVehicle' : carvanVehicle})
+    
+    if request.method == 'POST':
+        pickup_location = request.POST.get('pickup_location')
+        pickup_date = request.POST.get('pickup_date')
+        return_date = request.POST.get('return_date')
+        pickup_time = request.POST.get('pickup_time')
+        dropoff_time = request.POST.get('dropoff_time')
+        car_id = request.POST.get('car_id')
+        
+        car = AddCar.objects.get(id=car_id)
+        
+        Booking.objects.create(
+            pickup_location=pickup_location,
+            pickup_date=pickup_date,
+            return_date=return_date,
+            pickup_time=pickup_time,
+            dropoff_time=dropoff_time,
+            car=car
+        )
+        return redirect('booking_success')
+    
+    return render(request, 'index.html', {'carvanVehicle': carvanVehicle})
+
+# def booking_success(request):
+#     return render(request, 'booking_success.html')
+
+def get_location(request):
+    if request.method == 'GET':
+        latitude = request.GET.get('latitude')
+        longitude = request.GET.get('longitude')
+        if latitude and longitude:
+            response = requests.get(
+                f'https://maps.googleapis.com/maps/api/geocode/json?latlng={latitude},{longitude}&key={settings.YOUR_GOOGLE_API_KEY}'
+            )
+            if response.status_code == 200:
+                data = response.json()
+                if data['status'] == 'OK':
+                    address = data['results'][0]['formatted_address']
+                    return JsonResponse({'status': 'success', 'address': address})
+                else:
+                    return JsonResponse({'status': 'error', 'message': 'Unable to fetch address'})
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Error calling geocoding API'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+
 
 def about(request) :
     return render(request,'about.html')
@@ -17,8 +65,7 @@ def about(request) :
 def services(request) :
     return render(request,'services.html')
 
-# def pricing(request) :
-#     return render(request,'pricing.html')
+
 
 def cars_list(request):
     cars = AddCar.objects.all()
@@ -150,4 +197,8 @@ def car_single(request, car_id):
     car = get_object_or_404(AddCar, id=car_id)
     return render(request, 'car-single.html', {'car': car})
 
-    
+
+# def profile(request) :
+#     user = request.user
+#     cars = AddCar.objects.filter(rented_by=user)
+#     return render(request, 'profile.html', {'cars': cars})

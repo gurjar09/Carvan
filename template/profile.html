@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Rented Cars</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>/* styles.css */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .profile-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    .profile-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .profile-header h1 {
+        margin: 0;
+        color: #333;
+    }
+    
+    .car-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .car {
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    
+    .car img {
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+    
+    .car-details {
+        margin-top: 10px;
+    }
+    
+    .car-details h2 {
+        margin-top: 0;
+        color: #333;
+    }
+    
+    .car-details p {
+        margin: 5px 0;
+    }
+    
+    .profile-footer {
+        text-align: center;
+    }
+    
+    .edit-profile {
+        text-decoration: none;
+        color: #007bff;
+        border: 1px solid #007bff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    
+    .edit-profile:hover {
+        background-color: #007bff;
+        color: #fff;
+    }
+    </style>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>My Rented Cars</h1>
+        </div>
+        <div class="car-list">
+            {% for car in cars %}
+            <div class="car">
+                <h2>{{ car.carName }}</h2>
+                <p>Brand: {{ car.brand }}</p>
+                <p>Price: {{ car.price }}</p>
+                <p>Mileage: {{ car.mileage }}</p>
+                <!-- Add more details as needed -->
+            </div>
+            {% empty %}
+            <p>No cars rented yet.</p>
+            {% endfor %}
+        </div>
+        <div class="profile-footer">
+            <a href="#" class="edit-profile">Edit Profile</a>
+        </div>
+    </div>
+    
+</body>
+</html>

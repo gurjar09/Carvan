@@ -79,9 +79,56 @@
               <form class="request-form ftco-animate bg-primary">
                 <h2>Make your trip</h2>
                 <div class="form-group">
-                  <label for="" class="label">Pick-up location</label>
-                  <input type="text" class="form-control" placeholder="City, Airport, Station, etc">
-                </div>
+                  <label for="locationInput" class="label">Pick-up location</label>
+                  <div class="input-group">
+                      <input type="text" id="locationInput" class="form-control" placeholder="City, Airport, Station, etc">
+                      <button type="button" class="btn btn-primary" onclick="getCurrentLocation()">Get My Location</button>
+                  </div>
+              </div>
+              <div id="result"></div>
+              
+              <script>
+                  function getCurrentLocation() {
+                      if (navigator.geolocation) {
+                          navigator.geolocation.getCurrentPosition(
+                              position => {
+                                  const latitude = position.coords.latitude;
+                                  const longitude = position.coords.longitude;
+                                  getAddressFromCoordinates(latitude, longitude);
+                              },
+                              error => {
+                                  console.error('Error getting current location:', error);
+                                  document.getElementById('result').innerText = 'Error getting current location. Please try again.';
+                              }
+                          );
+                      } else {
+                          document.getElementById('result').innerText = 'Geolocation is not supported by your browser.';
+                      }
+                  }
+              
+                  function getAddressFromCoordinates(latitude, longitude) {
+                      const apiKey = '168997b0e31a4933a07455064b4fdd94'; // Replace with your OpenCage API key
+                      const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}&pretty=1`;
+              
+                      fetch(url)
+                          .then(response => response.json())
+                          .then(data => {
+                              if (data.results && data.results.length > 0) {
+                                  const address = data.results[0].formatted;
+                                  document.getElementById('result').innerText = `Your Current Location: ${address}`;
+                                  document.getElementById('locationInput').value = address;
+                              } else {
+                                  document.getElementById('result').innerText = 'Location not found.';
+                              }
+                          })
+                          .catch(error => {
+                              console.error('Error:', error);
+                              document.getElementById('result').innerText = 'An error occurred. Please try again later.';
+                          });
+                  }
+              </script>
+              
+              
                 <div class="form-group">
                   <label for="" class="label">Drop-off location</label>
                   <input type="text" class="form-control" placeholder="City, Airport, Station, etc">
@@ -540,6 +587,7 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="/static/js/google-map.js"></script>
   <script src="/static/js/main.js"></script>
+  
 
 </body>
 

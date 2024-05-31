@@ -43,4 +43,13 @@ class CarImage(models.Model):
         return f"Image for {self.car.carName}"
 
 
+class Booking(models.Model):
+    pickup_location = models.CharField(max_length=255)
+    dropoff_location = models.CharField(max_length=255)
+    pickup_date = models.DateField()
+    dropoff_date = models.DateField()
+    pickup_time = models.TimeField()
+    car = models.ForeignKey(AddCar, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"Booking from {self.pickup_location} to {self.dropoff_location}"
